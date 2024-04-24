@@ -18,7 +18,7 @@ VSOutput VSMain(VSInput In)
 	VSOutput vsOut = (VSOutput)0;
 
 	// step-1 入力された頂点座標を出力データに代入する
-	//vsOut.pos = In.pos;
+	vsOut.pos = In.pos;
 
 	// step-2 入力された頂点座標を2倍に拡大する
 	//vsOut.pos.x *= 2.0f;

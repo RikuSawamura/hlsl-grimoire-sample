@@ -43,7 +43,14 @@ float4 PSMain(VSOutput vsOut) : SV_Target0
 	color.x = vsOut.color.x;
 	color.y = vsOut.color.y;
 	color.z = vsOut.color.z;
-	color.w = 1.0f;//今はαは気にしない
+	color.w = 1.0f;
 	return color;
-	//return float4(vsOut.color.x, vsOut.color.y, vsOut.color.z,1.0f);↑と同じ
+	
+	//縞模様
+	/*float4 color;
+    color.x = (vsOut.pos.x % 300) / 300;//vsOut.color.x;
+	color.y = (vsOut.pos.y % 100) / 100;//vsOut.color.y;
+	color.z = (vsOut.pos.x % 100) / 100;//vsOut.color.z;
+	color.w = 1.0f;
+	return color;*/
 }

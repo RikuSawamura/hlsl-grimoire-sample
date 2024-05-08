@@ -43,19 +43,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	{
 #pragma region triangle
 		/*{
-			{-0.5f, -0.5f, 0.0f},//左下
+			{-0.5f, -0.5f, 0.0f},//0
 
 			//2,上が白、右が赤、左が青	
 			{ 0.0f, 0.0f, 1.0f }
 		},
 		{
-			{ 0.5f, -0.5f, 0.0f },//右下
+			{ 0.5f, -0.5f, 0.0f },//1
 
 			//2,上が白、右が赤、左が青
 			{ 1.0f, 0.0f, 0.0f }
 		},
 		{
-			{ 0.0f, 0.7f, 0.0f },//中上
+			{ 0.0f, 0.7f, 0.0f },//2
 
 			//2,上が白、右が赤、左が青
 			{ 1.0f, 1.0f, 1.0f }
@@ -63,62 +63,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 #pragma endregion
 #pragma region square
 		{
-			{-0.5f, -0.5f, 0.0f},//左下
-
-			//2,上が白、右が赤、左が青	
-			{ 0.0f, 0.0f, 1.0f }
-		},
-		{
-			{ -0.5f, 0.5f, 0.0f },//左上
-
-
-			{ 1.0f, 1.0f, 1.0f }
-		},
-		{
-			{ 0.5f, -0.5f, 0.0f },//右下
-
-			//2,上が白、右が赤、左が青
-			{ 1.0f, 0.0f, 0.0f }
-		},
-		{
-			{ 0.5f, 0.5f, 0.0f },//右上
-			{ 1.0f, 1.0f, 1.0f }
-		}
-		#pragma endregion
-
-#pragma region pentagon
-		/*{
-			{-0.5f, -0.5f, 0.0f},//左下
-
-			//2,上が白、右が赤、左が青	
-			{ 0.0f, 0.0f, 1.0f }
-		},
-		{
-			{ -0.5f, 0.5f, 0.0f },//左上
-
-
-			{ 1.0f, 1.0f, 1.0f }
-		},
-		{
-			{ 0.5f, -0.5f, 0.0f },//右下
-
-			//2,上が白、右が赤、左が青
-			{ 1.0f, 0.0f, 0.0f }
-		},
-		{
-			{ 0.5f, 0.5f, 0.0f },//右上
-			{ 1.0f, 1.0f, 1.0f }
-		},
-		{
-			{ 0.0f, 0.7f, 0.0f },//中上
-
-			//2,上が白、右が赤、左が青
-			{ 1.0f, 1.0f, 1.0f }
-		}*/
-#pragma endregion
-
-#pragma region stripes
-		/* {
 			{-0.5f, -0.5f, 0.0f},//0
 
 			{ 0.0f, 0.0f, 1.0f }
@@ -129,34 +73,42 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			{ 0.0f, 0.0f, 1.0f }
 		},
 		{
-			{ -0.25f, -0.5f, 0.0f },//2
+			{ 0.5f, -0.5f, 0.0f },//2
 
 			{ 1.0f, 0.0f, 0.0f }
 		},
 		{
-			{-0.25f, 0.5f, 0.0f },//3
+			{ 0.5f, 0.5f, 0.0f },//3
 
-			{ 1.0f, 0.0f, 0.0f }
-		},
-		{
-			{0.25f, -0.5f, 0.0f},//4
+			{ 0.0f, 1.0f, 0.0f }
+		}
+		#pragma endregion
+#pragma region pentagon
+		/*{
+			{-0.3f, -0.5f, 0.0f},//0
 
 			{ 0.0f, 0.0f, 1.0f }
 		},
 		{
-			{ 0.25, 0.5f, 0.0f },//5
+			{ -0.5f, 0.3f, 0.0f },//1
 
-			{ 0.0f, 0.0f, 1.0f }
+
+			{ 0.0f, 1.0f, 1.0f }
 		},
 		{
-			{ 0.5f, -0.5f, 0.0f },//6
+			{ 0.3f, -0.5f, 0.0f },//2
 
 			{ 1.0f, 0.0f, 0.0f }
 		},
 		{
-			{ 0.5f, 0.5f, 0.0f },//7
+			{ 0.5f, 0.3f, 0.0f },//3
 
-			{ 1.0f, 0.0f, 0.0f }
+			{ 1.0f, 1.0f, 0.0f }
+		},
+		{
+			{ 0.0f, 0.7f, 0.0f },//4
+
+			{ 0.0f, 1.0f, 0.0f }
 		}*/
 #pragma endregion
 	};
@@ -176,10 +128,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		0,1,3,0,2,3
 
 		//五角形
-		//0,1,2,0,3,2,1,4,2
+		//0,1,2,1,3,2,1,4,3
 
-		//縞々
-		//0,1,2 ,2,3,1 ,2,3,4 ,4,5,3 ,4,5,6 ,6,7,5
 	};
 	IndexBuffer triangleIB;
 	triangleIB.Init(sizeof(indices), 2);
@@ -220,9 +170,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//五角形
 		//renderContext.DrawIndexed(9);
-
-		//縞々
-		//renderContext.DrawIndexed(18);
 
 		/// //////////////////////////////////////
 		// 絵を描くコードを書くのはここまで！！！

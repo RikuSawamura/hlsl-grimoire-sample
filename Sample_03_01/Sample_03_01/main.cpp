@@ -58,9 +58,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		// step-3 ワールド行列を作成
 		Matrix mWorld;
-
+		
 		//左に配置
-		//mWorld.MakeTranslation(-0.5f, 0.0f, 0.0f);
+		mWorld.MakeTranslation(-0.5f, 0.0f, 0.0f);
 
 		//左右に往復
 		//mWorld.MakeTranslation(0.5f * sin(f / 100.0f),0.0f,0.0f);
@@ -69,9 +69,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//mWorld.MakeRotationZ(f / 90.0f);
 
 		//z軸回転でアニメーション
-		
-
-
+		//Matrix mWorld1;
+		//mWorld1.MakeTranslation(0.5 * sin( f / 100.0f),0.0f,0.0f);
+		//Matrix mWorld2;
+		//mWorld2.MakeRotationZ(f / 90.0f);
+		//Matrix mWorld = mWorld2 * mWorld1;
 
 		//円運動
 		//mWorld.MakeTranslation(0.5f * sin(f/100.0f), 0.4f * cos(f / 100.0f), 0.0f);

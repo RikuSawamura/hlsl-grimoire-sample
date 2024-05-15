@@ -36,10 +36,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	
 	//演習4
 	//左右反転
-	triangle.SetUVCoord(0,1.0f,1.0f);
+	triangle.SetUVCoord(0, 1.0f, 1.0f);
 	triangle.SetUVCoord(1,0.5f,0.0f);
 	triangle.SetUVCoord(2,0.0f,1.0f);
-
+	
 	//四角形
 	/*
 	triangle.SetUVCoord(0, 0.0f, 1.0f);
@@ -65,10 +65,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
 	auto& renderContext = g_graphicsEngine->GetRenderContext();
-
+	float f = 0.0f;
 	// ここからゲームループ
 	while (DispatchWindowMessage())
 	{
+		f++;
 		// フレーム開始
 		g_engine->BeginFrame();
 

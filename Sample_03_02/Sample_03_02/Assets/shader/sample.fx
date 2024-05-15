@@ -20,9 +20,9 @@ sampler g_sampler : register(s0);
 // step-4 t0レジスタのテクスチャにアクセスする変数を追加する
 Texture2D g_texture:register(t0);
 
-// 頂点シェーダー
-// 1. 引数は変換前の頂点情報
-// 2. 戻り値は変換後の頂点情報
+ //頂点シェーダー
+ //1. 引数は変換前の頂点情報
+ //2. 戻り値は変換後の頂点情報
 VSOutput VSMain(VSInput In)
 {
     VSOutput vsOut = (VSOutput)0;

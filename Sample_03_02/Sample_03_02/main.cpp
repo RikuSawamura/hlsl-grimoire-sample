@@ -30,16 +30,28 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	triangle.Init(rootSignature);
 
 	// step-1 三角形ポリゴンにUV座標を設定
-	//triangle.SetUVCoord(0, 0.0f, 1.0f);
-	//triangle.SetUVCoord(1, 0.5f, 0.0f);
-	//triangle.SetUVCoord(2, 1.0f, 1.0f);
-	
+	/*triangle.SetUVCoord(
+		0,
+		0.0f,
+		1.0f
+	);
+	triangle.SetUVCoord(
+		1,
+		0.5f, //U
+		0.0f  //V
+	);
+	triangle.SetUVCoord(
+		2,
+		1.0f,  //U
+		1.0f  //V
+	);*/
+
 	//演習4
 	//左右反転
 	triangle.SetUVCoord(0, 1.0f, 1.0f);
-	triangle.SetUVCoord(1,0.5f,0.0f);
-	triangle.SetUVCoord(2,0.0f,1.0f);
-	
+	triangle.SetUVCoord(1, 0.5f, 0.0f);
+	triangle.SetUVCoord(2, 0.0f, 1.0f);
+
 	//四角形
 	/*
 	triangle.SetUVCoord(0, 0.0f, 1.0f);

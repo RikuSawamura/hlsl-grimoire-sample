@@ -77,11 +77,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
 	auto& renderContext = g_graphicsEngine->GetRenderContext();
-	float f = 0.0f;
 	// ここからゲームループ
 	while (DispatchWindowMessage())
 	{
-		f++;
 		// フレーム開始
 		g_engine->BeginFrame();
 

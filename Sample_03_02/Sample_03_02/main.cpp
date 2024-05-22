@@ -48,9 +48,21 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//演習4
 	//左右反転
-	triangle.SetUVCoord(0, 1.0f, 1.0f);
-	triangle.SetUVCoord(1, 0.5f, 0.0f);
-	triangle.SetUVCoord(2, 0.0f, 1.0f);
+	triangle.SetUVCoord(
+		0,
+		1.0f,
+		1.0f
+	);
+	triangle.SetUVCoord(
+		1,
+		0.5f,
+		0.0f
+	);
+	triangle.SetUVCoord(
+		2,
+		0.0f,
+		1.0f
+	);
 
 	//四角形
 	/*

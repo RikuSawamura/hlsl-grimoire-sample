@@ -209,7 +209,9 @@ float3 CalcLigFromPointLight(SPSIn psIn)
     {
         affect = 0.0f;
     }
-
+    //↑と同じ処理(大きい方を返す)
+    //affect = max(0,affect);
+     
     // 影響の仕方を指数関数的にする。今回のサンプルでは3乗している
     affect = pow(affect, 3.0f);
 

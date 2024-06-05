@@ -40,6 +40,9 @@ cbuffer DirectionLightCb : register(b1)
 {
     DirectionLight directionLight;
     float3 eyePos; // 視点の位置
+
+    //追加
+    float3 enviromentColor;
 };
 
 ///////////////////////////////////////////
@@ -117,6 +120,11 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     lig.x += 0.3f;
     lig.y += 0.3f;
     lig.z += 0.3f;
+    
+    //追加
+    lig.x += enviromentColor.x;
+    lig.y += enviromentColor.y;
+    lig.z += enviromentColor.z;
 
     float4 finalColor = g_texture.Sample(g_sampler, psIn.uv);
 

@@ -17,6 +17,8 @@ struct SPSIn
     float2 uv       : TEXCOORD0;
     float3 worldPos : TEXCOORD1;
     // step-1 ピクセルシェーダーへの入力にカメラ空間の法線を追加する
+    //カメラ空間の法線
+    float3 normalInView:TEXCOORD2;
 };
 
 ///////////////////////////////////////////
@@ -75,6 +77,8 @@ SPSIn VSMain(SVSIn vsIn, uniform bool hasSkin)
     psIn.uv = vsIn.uv;
 
     // step-2 カメラ空間の法線を求める
+    //カメラ空間の法線を求める
+    psIn.normalInView = mul(mView, psIn.normal);
 
     return psIn;
 }
@@ -90,15 +94,29 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     // リムライトの強さを求める
 
     // step-3 サーフェイスの法線と光の入射方向に依存するリムの強さを求める
+    //カメラ空間の法線を求める
+    float power1 = 1.0f - max(0.0f,dot(dirDirection,psIn.normal));
 
     // step-4 サーフェイスの法線と視線の方向に依存するリムの強さを求める
+    float power2 = 1.0f - max(0.0f, psIn.normalInView.z * -1.0f);
 
     // step-5 最終的なリムの強さを求める
+    float limPower = power1 * power2;
+    //step3,step4まとめると
+    //float limPower = (1.0f - max(0.0f,dot(idrDirectionm,psIn.normal))) * (1.0f - max(0.0f,psIn.normalInView.z * -1.0f));
+
+    //pow()を使用して、強さの変化を指数関数的にする
+    limPower = pow(limPower, 1.3f);
 
     // 最終的な反射光を求める
     float3 finalLig = directionLig + ambientLight;
 
     // step-6 最終的な反射光にリムライトの反射光を合算する
+    //まずはリムライトのカラーを計算する
+    float3 limColor = limPower * dirColor;
+
+    //最終的な反射光にリムの反射光を合算する
+    finalLig += limColor;
 
     float4 finalColor = g_texture.Sample(g_sampler, psIn.uv);
 

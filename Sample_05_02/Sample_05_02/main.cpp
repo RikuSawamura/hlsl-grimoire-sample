@@ -119,8 +119,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			//Z軸方向に動かす
 			light.spPosition.z -= g_pad[0]->GetLStickYF();
 		}
-
-
+		
 		if (g_pad[0]->IsPress(enButtonA))//Jボタン
 		{
 			light.spRange += 10.0f;
@@ -132,11 +131,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 				light.spRange -= 10.0f;
 			}
 		}
+
 		// step-4 コントローラー右スティックでスポットライトを回転させる
 		//Y軸回りの回転クォータニオンを計算する
 		Quaternion qRotY;
 		//qRotY.SetRotationY(g_pad[0]->GetLStickXF() * 0.01f);
-		qRotY.SetRotationY((sin(f / 100.0f * 0.5f) + 2.0f) * 0.01);
+		qRotY.SetRotationY((sin(f / 100.0f * 0.5f) + 2.0f) * 0.01f);
 
 		//計算したクォータニオンでライトの方向を回す
 		qRotY.Apply(light.spDirection);
@@ -155,9 +155,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		qRot.SetRotation({ 0.0f,0.0f,-1.0f }, light.spDirection);
 
 		//スポットライトモデルのワールド行列を更新する
-		lightModel.UpdateWorldMatrix(light.spPosition , qRot, g_vec3One);
+		lightModel.UpdateWorldMatrix(light.spPosition, qRot, g_vec3One);
 
-		teapotModel.UpdateWorldMatrix(Vector3(80.0f * sin(f / 100.0f), 20.0f,80.0f * cos(f /100.0f)), Quaternion(0,0, 0, 0), g_vec3One);
+		teapotModel.UpdateWorldMatrix(Vector3(80.0f * sin(f / 100.0f), 20.0f, 80.0f * cos(f / 100.0f)), Quaternion(0, 0, 0, 0), g_vec3One);
 
 		// 背景モデルをドロー
 		bgModel.Draw(renderContext);

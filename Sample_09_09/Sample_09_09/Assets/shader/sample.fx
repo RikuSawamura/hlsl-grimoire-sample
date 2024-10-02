@@ -49,13 +49,13 @@ float4 PSMain(PSInput In) : SV_Target0
 	negaColor.z = 1.0f - color.z;
 
 	// グレースケール化
-	float3 sepiaColor;
-	sepiaColor.r = Y ;
-	sepiaColor.g = Y ;
-	sepiaColor.b = Y ;
+	float3 grayscaleColor;
+	grayscaleColor.r = Y ;
+	grayscaleColor.g = Y ;
+	grayscaleColor.b = Y ;
 
 	// ネガポジ率を使って徐々にネガポジ画像にしていく
-	color.xyz = lerp(negaColor,sepiaColor , negaRate);
+	color.xyz = lerp(grayscaleColor, negaColor , negaRate);
 
 	return color;
 }

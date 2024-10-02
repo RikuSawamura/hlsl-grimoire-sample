@@ -1,5 +1,7 @@
 ﻿#include "stdafx.h"
 #include "system/system.h"
+#define _USE_MATH_DEFINES 
+#include <math.h>"
 
 // 頂点構造体
 struct SimpleVertex
@@ -54,9 +56,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     //////////////////////////////////////
     auto& renderContext = g_graphicsEngine->GetRenderContext();
 
+    int f = 0;
     // ここからゲームループ
     while (DispatchWindowMessage())
     {
+        f++;
         // 1フレームの開始
         g_engine->BeginFrame();
 
@@ -64,10 +68,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         // ここから絵を描くコードを記述する
         //////////////////////////////////////
         // ワイプサイズを増やして少しずつワイプさせる
-        monochromeRate += 0.01f;
-        if (monochromeRate > 1.0f) {
+        monochromeRate = sin(2.0f * M_PI * (f / 360.0f));
+        /*if (monochromeRate > 1.0f) {
             monochromeRate = 1.0f;
-        }
+        }*/
+
+
+
         // スプライトのドローコールを実行する
         test2D.Draw(renderContext);
 

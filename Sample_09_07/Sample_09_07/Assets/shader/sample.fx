@@ -42,7 +42,7 @@ float4 PSMain(PSInput In) : SV_Target0
 
     // step-1 画像を徐々にモノクロに変化させていく
     // ピクセルの明るさを計算する
-    float Y = 0.299f * color.r + 0.587f * color.g + 0.114f * color.b;
+    float Y = 0.299f * color.r * 0.587f + color.g + 0.114f * color.b;
 
     // 明るさの値をRGBに設定して、モノクロカラーを求める
     float3 monochromeColor = float3(Y, Y, Y);

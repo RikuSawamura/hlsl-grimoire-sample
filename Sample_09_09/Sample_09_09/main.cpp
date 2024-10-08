@@ -68,7 +68,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		// ここから絵を描くコードを記述する
 		//////////////////////////////////////
 		// ワイプサイズを増やして少しずつワイプさせる
-		monochromeRate = sin(M_PI * (f / 360.0f));
+		monochromeRate = sin((f / 60.0f) / 2.0f + 0.5f);
+		
 		/*monochromeRate += 0.01f;
 		if (monochromeRate > 1.0f)
 		{

@@ -40,22 +40,22 @@ float4 PSMain(PSInput In) : SV_Target0
 {
 	float4 color = colorTexture.Sample(Sampler, In.uv);
 
-	float Y = 0.299f * color.r + 0.587f * color.g + 0.114f * color.b;
-
 	// step-1 画像を徐々にネガポジ反転させていく
 	float3 negaColor;
 	negaColor.x = 1.0f - color.x;
 	negaColor.y = 1.0f - color.y;
 	negaColor.z = 1.0f - color.z;
 
+	
 	// グレースケール化
+	float Y = 0.299f * negaColor.r + 0.587f * negaColor.g + 0.114f * negaColor.b;
 	float3 grayscaleColor;
-	grayscaleColor.r = Y ;
-	grayscaleColor.g = Y ;
-	grayscaleColor.b = Y ;
+	grayscaleColor.r = Y;
+	grayscaleColor.g = Y;
+	grayscaleColor.b = Y;
 
 	// ネガポジ率を使って徐々にネガポジ画像にしていく
-	color.xyz = lerp(grayscaleColor, negaColor , negaRate);
+	color.xyz = lerp(negaColor, grayscaleColor, negaRate);
 
 	return color;
 }

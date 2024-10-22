@@ -136,8 +136,44 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	);
 
 	// step-6 縦ブラー用のスプライトを初期化
+	// 初期化情報を設定する
+	SpriteInitData yBlurSpriteInitData;
+	yBlurSpriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect.fx";
+	yBlurSpriteInitData.m_vsEntryPointFunc = "VSYBlur";
+	yBlurSpriteInitData.m_psEntryPoinFunc = "PSBlur";
+
+	// スプライトの幅と高さはyBlurRenderTargetと同じ
+	yBlurSpriteInitData.m_width = 640;
+	yBlurSpriteInitData.m_height = 360;
+
+	// テクスチャはxBlurRenderTargetのカラーバッファー
+	yBlurSpriteInitData.m_textures[0] = &xBlurRenderTarget.GetRenderTargetTexture();
+
+	// ユーザー拡張の定数バッファーに重みテーブルを設定する
+	yBlurSpriteInitData.m_expandConstantBuffer = &weights;
+	yBlurSpriteInitData.m_expandConstantBufferSize = sizeof(weights);
+
+	// 初期情報をもとに縦ブラー用のスプライトを初期化する
+	Sprite yBlurSprite;
+	yBlurSprite.Init(yBlurSpriteInitData);
 
 	// step-7 テクスチャを貼り付けるためのスプライトを初期化する
+	// スプライトの初期化オブジェクトを作成する
+	SpriteInitData spriteInitData;
+
+	// テクスチャはyBlurRenderTargetのカラーバッファー
+	spriteInitData.m_textures[0] = &yBlurRenderTarget.GetRenderTargetTexture();
+
+	// レンダリング先がフレームバッファーなので、解像度はフレームバッファーと同じ
+	spriteInitData.m_width = 1280;
+	spriteInitData.m_height = 720;
+
+	// ボケ画像をそのまま貼り付けるだけなので、通常の2D描画のシェーダーを指定する
+	spriteInitData.m_fxFilePath = "Assets/shader/sample2D.fx";
+
+	// 初期化オブジェクトを使って、スプライトを初期化する
+	Sprite copyToFrameBufferSprite;
+	copyToFrameBufferSprite.Init(spriteInitData);
 
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
@@ -155,14 +191,73 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//////////////////////////////////////
 
 		// step-8 レンダリングターゲットをmainRenderTargetに変更する
+		// レンダリングターゲットとして利用できるまで待つ
+		renderContext.WaitUntilToPossibleSetRenderTarget(mainRenderTarget);
+
+		// レンダリングターゲットを設定
+		renderContext.SetRenderTargetAndViewport(mainRenderTarget);
+
+		// レンダリングターゲットをクリア
+		renderContext.ClearRenderTargetView(mainRenderTarget);
 
 		// step-9 mainRenderTargetに各種モデルを描画する
+		plModel.Draw(renderContext);
+		bgModel.Draw(renderContext);
+
+		// レンダリングターゲットへの書き込み終了待ち
+		renderContext.WaitUntilFinishDrawingToRenderTarget(mainRenderTarget);
 
 		// step-10 mainRenderTargetに描画された画像に横ブラーをかける
+		// 横ブラー用のレンダリングターゲットに変更
+		// レンダリングターゲットとして利用できるまで待つ
+		renderContext.WaitUntilToPossibleSetRenderTarget(xBlurRenderTarget);
+
+		// レンダリングターゲットを設定
+		renderContext.SetRenderTargetAndViewport(xBlurRenderTarget);
+
+		// レンダリングターゲットをクリア
+		renderContext.ClearRenderTargetView(xBlurRenderTarget);
+
+		// 2Dを描画
+		xBlurSprite.Draw(renderContext);
+
+		// レンダリングターゲットへの書き込み終了待ち
+		renderContext.WaitUntilFinishDrawingToRenderTarget(xBlurRenderTarget);
 
 		// step-11 縦ブラーも行う
+		// 縦ブラー用のレンダリングターゲットに変更
+		// レンダリングターゲットとして利用できるまで待つ
+		renderContext.WaitUntilToPossibleSetRenderTarget(yBlurRenderTarget);
+
+		// レンダリングターゲットを設定
+		renderContext.SetRenderTargetAndViewport(yBlurRenderTarget);
+
+		// レンダリングターゲットをクリア
+		renderContext.ClearRenderTargetView(yBlurRenderTarget);
+
+		// 2Dを描画
+		yBlurSprite.Draw(renderContext);
+
+		// レンダリングターゲットへの書き込み終了待ち
+		renderContext.WaitUntilFinishDrawingToRenderTarget(yBlurRenderTarget);
 
 		// step-12 メインレンダリングターゲットの絵をフレームバッファにコピー
+		renderContext.SetRenderTarget(
+			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
+			g_graphicsEngine->GetCurrentFrameBuffuerDSV()
+		);
+
+		// ビューポートを指定する
+		D3D12_VIEWPORT viewport;
+		viewport.TopLeftX = 0;
+		viewport.TopLeftY = 0;
+		viewport.Width = 1280;
+		viewport.Height = 720;
+		viewport.MinDepth = 0.0f;
+		viewport.MaxDepth = 1.0f;
+
+		renderContext.SetViewportAndScissor(viewport);
+		copyToFrameBufferSprite.Draw(renderContext);
 
 		//////////////////////////////////////
 		// 絵を描くコードを書くのはここまで！！！

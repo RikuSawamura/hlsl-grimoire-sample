@@ -77,15 +77,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	plModel.Init(plModelInitData);
 
 	// step-2 ガウスブラー用の重みテーブルを計算する
-	const int NUM_WIGHTS = 8;
+	const int NUM_WEIGHTS = 8;
 
-	// テーブルサイズは8
-	float weights[NUM_WIGHTS];
+	// テーブルのサイズは8
+	float weights[NUM_WEIGHTS];
 
 	// 重みテーブルを計算する
 	CalcWeightsTableFromGaussian(
 		weights,		// 重みの格納先
-		NUM_WIGHTS,		// 重みテーブルのサイズ
+		NUM_WEIGHTS,		// 重みテーブルのサイズ
 		8.0f			// ボケ具合。この数値が大きくなるとボケが強くなる
 	);
 
@@ -106,7 +106,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// 初期化情報を設定する
 	SpriteInitData xBlurSpriteInitData;
 	xBlurSpriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect.fx";
-	xBlurSpriteInitData.m_vsEntryPointFunc = "VSBlur";
+	xBlurSpriteInitData.m_vsEntryPointFunc = "VSXBlur";
 	xBlurSpriteInitData.m_psEntryPoinFunc = "PSBlur";
 
 	// スプライトの解像度はxBlurRenderTargetと同じ
@@ -153,7 +153,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	yBlurSpriteInitData.m_expandConstantBuffer = &weights;
 	yBlurSpriteInitData.m_expandConstantBufferSize = sizeof(weights);
 
-	// 初期情報をもとに縦ブラー用のスプライトを初期化する
+	// 初期化情報をもとに縦ブラー用のスプライトを初期化する
 	Sprite yBlurSprite;
 	yBlurSprite.Init(yBlurSpriteInitData);
 
@@ -241,7 +241,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		// レンダリングターゲットへの書き込み終了待ち
 		renderContext.WaitUntilFinishDrawingToRenderTarget(yBlurRenderTarget);
 
-		// step-12 メインレンダリングターゲットの絵をフレームバッファにコピー
+		// step-12 メインレンダリングターゲットの絵をフレームバッファーにコピー
 		renderContext.SetRenderTarget(
 			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
 			g_graphicsEngine->GetCurrentFrameBuffuerDSV()

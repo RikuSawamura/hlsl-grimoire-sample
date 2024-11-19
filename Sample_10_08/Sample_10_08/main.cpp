@@ -155,6 +155,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		renderContext.WaitUntilFinishDrawingToRenderTargets(2, blurRts);
 
 		// step-5 六角形ブラーをかける
+		renderContext.WaitUntilToPossibleSetRenderTarget(rtPhomboidBlur);
+		renderContext.SetRenderTargetAndViewport(rtPhomboidBlur);
+
+		phomboidBlurSprite.Draw(renderContext);
+
+		// レンダリングターゲットへの書き込み終了待ち
+		renderContext.WaitUntilFinishDrawingToRenderTarget(rtPhomboidBlur);
 
 		// ボケ画像と深度テクスチャを利用して、ボケ画像を描きこんでいく
 		// メインレンダリングターゲットを設定

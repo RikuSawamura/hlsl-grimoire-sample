@@ -60,7 +60,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	spriteInitData.m_height = 720;
 
 	// 【重要!!!】モノクロ用のシェーダーを指定する
-	spriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect.fx";
+	spriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect_Posterize.fx";
+	// モノクロ赤 "Assets/shader/samplePostEffect_MonochromeRed.fx"
+	// 反転 "Assets/shader/samplePostEffect_Invert.fx"
+	// ソラリゼーション "Assets/shader/samplePostEffect_Solarization.fx"
+	// ポスタリゼーション"Assets/shader/samplePostEffect_Posterize.fx"
 
 	// 初期化オブジェクトを使って、スプライトを初期化する
 	Sprite monochromeSprite;

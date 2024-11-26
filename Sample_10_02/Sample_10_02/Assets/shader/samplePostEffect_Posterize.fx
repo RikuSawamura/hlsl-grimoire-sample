@@ -32,9 +32,8 @@ float4 PSMain(PSInput In) : SV_Target0
 	float4 color = sceneTexture.Sample(Sampler, In.uv);
 
 	// ポスタリゼーション
-
-	color.r = color.r;
-	color.g = color.g;
-	color.b = color.b;
+	color.r = floor(color.r * 4) / 4;
+	color.g = floor(color.g * 4) / 4;
+	color.b = floor(color.b * 4) / 4;
 	return color;
 }

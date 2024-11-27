@@ -60,7 +60,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	phomboidBlurSpriteInitData.m_fxFilePath = "Assets/shader/sample.fx";
 
 	// 六角形ブラー用のピクセルシェーダーを指定する
-	phomboidBlurSpriteInitData.m_psEntryPoinFunc = "PSRhomboidBulur";
+	phomboidBlurSpriteInitData.m_psEntryPoinFunc = "PSRhomboidBlur";
 	phomboidBlurSpriteInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
 
 	Sprite phomboidBlurSprite;

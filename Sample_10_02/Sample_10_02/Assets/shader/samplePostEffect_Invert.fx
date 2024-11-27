@@ -31,7 +31,7 @@ float4 PSMain(PSInput In) : SV_Target0
 {
     float4 color = sceneTexture.Sample(Sampler, In.uv);
 
-    // 反転
+    // 反転(ネガポジ)
     color.r = 1 - color.r;
     color.g = 1 - color.g;
     color.b = 1 - color.b;

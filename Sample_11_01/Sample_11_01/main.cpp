@@ -25,8 +25,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
 	RenderTarget shadowMap;
 	shadowMap.Create(
-		1024,
-		1024,
+		1024,	// 【注目】レンダリングターゲットの横幅
+		1024,	// 【注目】レンダリングターゲットの縦幅
 		1,
 		1,
 		DXGI_FORMAT_R8G8B8A8_UNORM

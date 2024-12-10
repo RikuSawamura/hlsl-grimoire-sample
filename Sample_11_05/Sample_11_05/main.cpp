@@ -32,14 +32,20 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     InitLightCamera(lightCamera, ligPos);
 
     // step-1 シャドウマップ描画用のレンダリングターゲットを作成する
+    float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
+    RenderTarget shadowMap;
 
     // step-2 シャドウマップをぼかすためのオブジェクトを初期化する
 
+
     // step-3 GPU側で利用するシャドウ用の構造体を定義する
+
 
     // step-4 GPU側に送るデータを設定する
 
+
     // step-5 シャドウマップに描画するモデルを初期化する
+
 
     // 通常描画のティーポットモデルを初期化
     ModelStandard teapotModel;

@@ -197,8 +197,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 			// step-8 8頂点を変換して最大値、最小値を求める
 			Vector3 vMax, vMin;
-			vMax = { -FLT_MAX,-FLT_MAX,-FLT_MAX };
-			vMin = { FLT_MAX,FLT_MAX,FLT_MAX };
+			vMax = { -FLT_MAX, -FLT_MAX, -FLT_MAX };
+			vMin = {  FLT_MAX,  FLT_MAX,  FLT_MAX };
 			for (auto& v : vertex)
 			{
 				lvpMatrix.Apply(v);
@@ -227,7 +227,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			renderContext.ClearRenderTargetView(shadowMaps[areaNo]);
 
 			// 影モデルを描画
-			testShadowModel[areaNo].Draw(renderContext,g_matIdentity,lvpcMatrix[areaNo]);
+			testShadowModel[areaNo].Draw(renderContext, g_matIdentity, lvpcMatrix[areaNo]);
 
 			// 書き込み完了待ち
 			renderContext.WaitUntilFinishDrawingToRenderTarget(shadowMaps[areaNo]);

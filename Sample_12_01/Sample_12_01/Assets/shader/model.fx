@@ -61,4 +61,5 @@ SPSIn VSMain(SVSIn vsIn, uniform bool hasSkin)
 SPSOut PSMain(SPSIn psIn)
 {
     // step-6 G-Bufferに出力
+
 }

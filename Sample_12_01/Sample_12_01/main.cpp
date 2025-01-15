@@ -44,9 +44,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
     // step-1 モデルを初期化
 
+
     // step-2 G-Bufferを作成
 
+
     // step-3 ディファードライティングを行うためのスプライトを初期化
+
 
     //////////////////////////////////////
     // 初期化を行うコードを書くのはここまで！！！
@@ -69,7 +72,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
         // step-4 レンダリングターゲットをG-Bufferに変更して書き込む
 
+
         // step-5 レンダリング先をフレームバッファーに戻してスプライトをレンダリングする
+
 
         /////////////////////////////////////////
         // 絵を描くコードを書くのはここまで！！！

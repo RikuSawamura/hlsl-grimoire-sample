@@ -37,4 +37,5 @@ PSInput VSMain(VSInput In)
 float4 PSMain(PSInput In) : SV_Target0
 {
     // step-7 G-Bufferの内容を使ってライティング
+
 }

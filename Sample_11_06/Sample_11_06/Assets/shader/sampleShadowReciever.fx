@@ -99,7 +99,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 				&& shadowMapUV.y >= 0.0f && shadowMapUV.y <= 1.0f)
 			{
 				// シャドウマップから値をサンプリング
-				float2 shadowValue = shadowMapArry[cascadeIndex].Sample(
+				float2 shadowValue = shadowMapArray[cascadeIndex].Sample(
 					g_sampler,shadowMapUV).xy;
 
 				// まずこのピクセルが遮蔽されているか調べる

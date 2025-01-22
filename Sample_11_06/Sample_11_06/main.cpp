@@ -34,7 +34,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	float clearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	// step-1 シャドウマップの枚数を定数で定義する
-	const int NUM_SHADOW_MAP = 3;
+	const int NUM_SHADOW_MAP = 4;	// 3→4に変更
 
 	// step-2 ライトビュープロジェクションクロップ行列の配列を定義する
 	Matrix lvpcMatrix[NUM_SHADOW_MAP];
@@ -44,8 +44,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	// 近影用のシャドウマップ
 	shadowMaps[0].Create(
-		2048,
-		2048,
+		//2048,
+		//2048,
+		4096,
+		4096,
 		1,
 		1,
 		DXGI_FORMAT_R32_FLOAT,
@@ -55,8 +57,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	// 中影用のシャドウマップ
 	shadowMaps[1].Create(
-		1024,
-		1024,
+		2048,
+		2048,
 		1,
 		1,
 		DXGI_FORMAT_R32_FLOAT,
@@ -66,6 +68,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	// 遠影用のシャドウマップ
 	shadowMaps[2].Create(
+		1024,
+		1024,
+		1,
+		1,
+		DXGI_FORMAT_R32_FLOAT,
+		DXGI_FORMAT_D32_FLOAT,
+		clearColor
+	);
+
+	// 追加分
+	shadowMaps[3].Create(
 		512,
 		512,
 		1,
@@ -78,8 +91,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// step-4 分割エリアの最大深度値を定義する
 	float cascadeAreaTbl[NUM_SHADOW_MAP] = {
 		500,					// 近影を映す最大深度
-		2000,					// 中影を映す最大深度
-		g_camera3D->GetFar()	// 遠影を映す最大深度。最大深度はカメラのFarクリップ
+		1000,					// 中影を映す最大深度
+		2000,	// 追加			// 遠影を映す最大深度。最大深度はカメラのFarクリップ
+		g_camera3D->GetFar()
 	};
 
 	// 影を落とすモデルを初期化する
@@ -87,6 +101,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	InitShadowCaster(testShadowModel[0]);
 	InitShadowCaster(testShadowModel[1]);
 	InitShadowCaster(testShadowModel[2]);
+	// 追加分
+	InitShadowCaster(testShadowModel[3]);
 
 	// 通常描画のティーポットモデルを初期化
 	ModelStandard teapotModel;
@@ -105,6 +121,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		&shadowMaps[1].GetRenderTargetTexture();
 	bgModelInitData.m_expandShaderResoruceView[2] =
 		&shadowMaps[2].GetRenderTargetTexture();
+	// 追加分
+	bgModelInitData.m_expandShaderResoruceView[3] =
+		&shadowMaps[3].GetRenderTargetTexture();
 
 	// 【注目】ライトビュープロジェクションクロップ行列を拡張定数バッファーに設定する
 	bgModelInitData.m_expandConstantBuffer = (void*)lvpcMatrix;
@@ -198,7 +217,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			// step-8 8頂点を変換して最大値、最小値を求める
 			Vector3 vMax, vMin;
 			vMax = { -FLT_MAX, -FLT_MAX, -FLT_MAX };
-			vMin = {  FLT_MAX,  FLT_MAX,  FLT_MAX };
+			vMin = { FLT_MAX,  FLT_MAX,  FLT_MAX };
 			for (auto& v : vertex)
 			{
 				lvpMatrix.Apply(v);
@@ -336,6 +355,8 @@ void InitShadowReciever(Model& model, Matrix* lvpMatrix, RenderTarget* shadowMap
 	bgModelInitData.m_expandShaderResoruceView[0] = &shadowMap[0].GetRenderTargetTexture();
 	bgModelInitData.m_expandShaderResoruceView[1] = &shadowMap[1].GetRenderTargetTexture();
 	bgModelInitData.m_expandShaderResoruceView[2] = &shadowMap[2].GetRenderTargetTexture();
+	// 追加分
+	bgModelInitData.m_expandShaderResoruceView[3] = &shadowMap[3].GetRenderTargetTexture();
 
 	// 影用のパラメータを拡張定数バッファーに設定する
 	bgModelInitData.m_expandConstantBuffer = (void*)lvpMatrix;

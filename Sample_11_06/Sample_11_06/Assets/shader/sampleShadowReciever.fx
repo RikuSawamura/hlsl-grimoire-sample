@@ -48,7 +48,7 @@ Texture2D<float4>g_shadowMap_0:register(t10);   // 近距離のシャドウマ�
 Texture2D<float4>g_shadowMap_1:register(t11);   // 中距離のシャドウマップ
 Texture2D<float4>g_shadowMap_2:register(t12);   // 遠距離のシャドウマップ
 // 追加分
-Texture2D<float4>g_shadowMap_3:register(t13);
+Texture2D<float4>g_shadowMap_3:register(t13);	// 4段階目
 
 
 sampler g_sampler : register(s0); //  サンプラーステート

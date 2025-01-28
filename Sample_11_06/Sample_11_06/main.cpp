@@ -77,6 +77,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		clearColor
 	);
 
+	// 4段階目
 	// 追加分
 	shadowMaps[3].Create(
 		512,
@@ -93,7 +94,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		500,					// 近影を映す最大深度
 		1000,					// 中影を映す最大深度
 		2000,	// 追加			// 遠影を映す最大深度。最大深度はカメラのFarクリップ
-		g_camera3D->GetFar()
+		g_camera3D->GetFar()	// 4段階目
 	};
 
 	// 影を落とすモデルを初期化する

@@ -102,8 +102,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	InitShadowCaster(testShadowModel[0]);
 	InitShadowCaster(testShadowModel[1]);
 	InitShadowCaster(testShadowModel[2]);
-	// 追加分
-	InitShadowCaster(testShadowModel[3]);
+	// 4段階目
+	InitShadowCaster(testShadowModel[3]);	// 追加分
 
 	// 通常描画のティーポットモデルを初期化
 	ModelStandard teapotModel;
@@ -122,9 +122,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		&shadowMaps[1].GetRenderTargetTexture();
 	bgModelInitData.m_expandShaderResoruceView[2] =
 		&shadowMaps[2].GetRenderTargetTexture();
-	// 追加分
+	// 4段階目
 	bgModelInitData.m_expandShaderResoruceView[3] =
-		&shadowMaps[3].GetRenderTargetTexture();
+		&shadowMaps[3].GetRenderTargetTexture();	// 追加分
 
 	// 【注目】ライトビュープロジェクションクロップ行列を拡張定数バッファーに設定する
 	bgModelInitData.m_expandConstantBuffer = (void*)lvpcMatrix;
@@ -356,8 +356,8 @@ void InitShadowReciever(Model& model, Matrix* lvpMatrix, RenderTarget* shadowMap
 	bgModelInitData.m_expandShaderResoruceView[0] = &shadowMap[0].GetRenderTargetTexture();
 	bgModelInitData.m_expandShaderResoruceView[1] = &shadowMap[1].GetRenderTargetTexture();
 	bgModelInitData.m_expandShaderResoruceView[2] = &shadowMap[2].GetRenderTargetTexture();
-	// 追加分
-	bgModelInitData.m_expandShaderResoruceView[3] = &shadowMap[3].GetRenderTargetTexture();
+	// 4段階目
+	bgModelInitData.m_expandShaderResoruceView[3] = &shadowMap[3].GetRenderTargetTexture();	// 追加分
 
 	// 影用のパラメータを拡張定数バッファーに設定する
 	bgModelInitData.m_expandConstantBuffer = (void*)lvpMatrix;

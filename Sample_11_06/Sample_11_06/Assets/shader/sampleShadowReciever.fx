@@ -47,8 +47,8 @@ Texture2D<float4> g_albedo : register(t0); // アルベドマップ
 Texture2D<float4>g_shadowMap_0:register(t10);   // 近距離のシャドウマップ
 Texture2D<float4>g_shadowMap_1:register(t11);   // 中距離のシャドウマップ
 Texture2D<float4>g_shadowMap_2:register(t12);   // 遠距離のシャドウマップ
-// 追加分
-Texture2D<float4>g_shadowMap_3:register(t13);	// 4段階目
+// 4段階目
+Texture2D<float4>g_shadowMap_3:register(t13);	// 追加分
 
 
 sampler g_sampler : register(s0); //  サンプラーステート
@@ -70,8 +70,8 @@ SPSIn VSMain(SVSIn vsIn)
 	psIn.posInLVP[0] = mul(mLVPC[0], worldPos);
 	psIn.posInLVP[1] = mul(mLVPC[1], worldPos);
 	psIn.posInLVP[2] = mul(mLVPC[2], worldPos);
-	// 追加分
-	psIn.posInLVP[3] = mul(mLVPC[3], worldPos);
+	// 4段階目
+	psIn.posInLVP[3] = mul(mLVPC[3], worldPos);	// 追加分
 
 	return psIn;
 }
@@ -86,8 +86,8 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 	shadowMapArray[0] = g_shadowMap_0;
 	shadowMapArray[1] = g_shadowMap_1;
 	shadowMapArray[2] = g_shadowMap_2;
-	// 追加分
-	shadowMapArray[3] = g_shadowMap_3;
+	// 4段階目
+	shadowMapArray[3] = g_shadowMap_3;	// 追加分
 
 	// step-16 3枚のシャドウマップを使って、シャドウレシーバーに影を落とす
 	for (int cascadeIndex = 0; cascadeIndex < 4; cascadeIndex++)	// 3→4に変更
